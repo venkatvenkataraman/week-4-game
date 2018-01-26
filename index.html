@@ -12,40 +12,42 @@
 
     <!-- Added link to the jQuery Library -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
 </head>
 <body>
     <h1>Star Wars RPG!</h1>
 
     <div class="gameContainer">
-        <div class="row">
+        <div class="row" id="players">
                 <div class="col-md-2">
-                 <img class="characterImage" id="obiWanKenobi" src="assets/images/obiwan.jpg" >
+                 <img class="characterImage" id="char1" src="assets/images/obiWanKenobi.jpg" >
                 </div>
                 <div class="col-md-2">
-                  <img class="characterImage" id="lukeSkywalker" src="assets/images/luke.jpg" >
+                  <img class="characterImage" id="char2" src="assets/images/lukeSkywalker.jpg" >
                   <!-- assets/images/luke.jpg -->
                 </div>
                 <div class="col-md-2">
-                  <img class="characterImage" id="darthSidious" src="assets/images/darthsidious.jpg" >
+                  <img class="characterImage" id="char3" src="assets/images/darthSidious.jpg" >
                 </div>
                 <div class="col-md-2">
-                  <img class="characterImage" id="darthMaul" src="assets/images/darthmaul.jpg" >
+                  <img class="characterImage" id="char4" src="assets/images/darthMaul.jpg" >
                 </div>
         </div>
         <h2>Your Character</h2>
         <div class="row">
-                <div class="col-md-2" id="yourCharacter">
+                <div class="col-md-2">
+                  <img class="characterImage" id="yourCharacter" >
                 </div>
         </div>
-        <h2>Enemies Available to Attack</h2>
+        <h2>Pick an Enemy to Attack</h2>
         <div class="row">
-                <div class="col-md-2" id="First Opponent">
+                <div class="col-md-2">
+                  <img class="characterImage" id="opponent0" >
                 </div>
-                <div class="col-md-2" id="Second Opponent">
+                <div class="col-md-2">
+                  <img class="characterImage" id="opponent1" >
                 </div>
-                <div class="col-md-2" id="Third Opponent">
+                <div class="col-md-2">
+                  <img class="characterImage" id="opponent2" >
                 </div>
         </div>
         <h2>Fight Section</h2>
