@@ -10,7 +10,34 @@ body {
   background: url("../images/starWarsBackground.jpg");
 }
 
-.characterImage{
+.characterImage1{
+  height: 100px;
+  width: 177px;
+  display: flex;
+  /* border-color: #28a745; */
+  border:3px solid #FFF;
+  margin:5px;
+}
+
+.characterImage2{
+  height: 100px;
+  width: 177px;
+  display: flex;
+  /* border-color: #28a745; */
+  border:3px solid #FFF;
+  margin:5px;
+}
+
+.characterImage3{
+  height: 100px;
+  width: 177px;
+  display: flex;
+  /* border-color: #28a745; */
+  border:3px solid #FFF;
+  margin:5px;
+}
+
+.defender{
   height: 100px;
   width: 177px;
   display: flex;

@@ -51,7 +51,9 @@ var remainingDefenders=[];
   // Add an on click listener to all elements that have the class "chracterImage"
   // $(".characterImage").on("click", function() {
 
-$("img").click(function() {
+// $("img").click(function() {
+
+$(".characterImage1").on("click", function() {
 
   console.log(this.id);
 
@@ -116,11 +118,32 @@ $("img").click(function() {
   //Display the Defender images below
   for (var k = 0; k < remainingDefenders.length; k++) {
     imgSrc = "assets/images/"+ remainingDefenders[k].name +".jpg";
-    var opponentID = "#opponent"+k;
+    var opponentID = "#opponent"+(k+1);
     console.log (imgSrc);
     console.log (opponentID);
     $(opponentID).attr("src", imgSrc);
   }
+
+  $(".characterImage3").on("click", function() {
+
+    console.log(this.id);
+
+    //Remove opponent image pick from "Pick an Enemy" area
+    $('#'+this.id).css('display', 'none');
+
+    //Determine who was picked for opponent and update currentDefender and remainingDefenders
+    var remDefendersIndex = (this.id[this.id.length -1] - 1);
+    console.log(remDefendersIndex);
+    currentDefender = remainingDefenders[remDefendersIndex];
+    console.log(currentDefender);
+    remainingDefenders.splice(remDefendersIndex, 1);
+    console.log(remainingDefenders);
+
+    //Display opponent pick in Defender area.
+    imgSrc = "assets/images/"+ currentDefender.name +".jpg";
+    $('.defender').attr("src", imgSrc);
+
+  });
 
 
 
