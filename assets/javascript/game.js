@@ -1,5 +1,19 @@
 $(document).ready(function() {
 
+function displayScore(myCharacter, currentDefender){
+  $("#myCharName").html("My Character: "+myCharacter.name);
+  $("#myCharHP").html("Health Points:"+myCharacter.healthPoints);
+  $("#myCharAP").html("Attack Power:"+myCharacter.attackPower);
+  $("#myCharCAP").html("Counter Attack Power:"+myCharacter.counterAttackPower);
+  $("#oppName").html("Defending Character: "+currentDefender.name);
+  $("#oppHP").html("Health Points:"+currentDefender.healthPoints);
+  $("#oppAP").html("Attack Power:"+currentDefender.attackPower);
+  $("#oppCAP").html("Counter Attack Power:"+currentDefender.counterAttackPower);
+}
+
+var gameIsReadyForBattle = false;
+var baseAttackPower;
+
 var characterArray = [{
     "name": "obiWanKenobi",
     "identity": "char1",
@@ -48,10 +62,25 @@ var myCharacter, currentDefender = {"name": "",
 
 var remainingDefenders=[];
 
+//The display is in the "Pick an enemy to attack portion of the page"
+function displayAllDefenders(remainingDefenders){
+  for (var l = 0; l < remainingDefenders.length; l++) {
+    imgSrc = "assets/images/"+ remainingDefenders[l].name +".jpg";
+    var opponentIDx = "#opponent"+(l+1);
+    console.log (imgSrc);
+    console.log (opponentIDx);
+    $(opponentIDx).css('display', 'flex');
+    $(opponentIDx).attr("src", imgSrc);
+  }
+
+}
+
   // Add an on click listener to all elements that have the class "chracterImage"
   // $(".characterImage").on("click", function() {
 
 // $("img").click(function() {
+
+// FOLLOWING CODE DESCRIBES HOW MAIN CHARACTER IS PICKED
 
 $(".characterImage1").on("click", function() {
 
@@ -96,13 +125,16 @@ $(".characterImage1").on("click", function() {
   // $('#"myCharacterIdName"').css('display', 'none');
 
   //Display the Defender images below
-  for (var k = 0; k < remainingDefenders.length; k++) {
-    imgSrc = "assets/images/"+ remainingDefenders[k].name +".jpg";
-    var opponentID = "#opponent"+(k+1);
-    console.log (imgSrc);
-    console.log (opponentID);
-    $(opponentID).attr("src", imgSrc);
-  }
+  displayAllDefenders(remainingDefenders);
+  // for (var k = 0; k < remainingDefenders.length; k++) {
+  //   imgSrc = "assets/images/"+ remainingDefenders[k].name +".jpg";
+  //   var opponentID = "#opponent"+(k+1);
+  //   console.log (imgSrc);
+  //   console.log (opponentID);
+  //   $(opponentID).attr("src", imgSrc);
+  // }
+
+// FOLLOWING CODE DESCRIBES HOW OPPONENT IS PICKED
 
   $(".characterImage3").on("click", function() {
 
@@ -132,16 +164,71 @@ $(".characterImage1").on("click", function() {
     $('.defender').attr("src", imgSrc);
 
     //Redisplay the "Pick an Enemy" area
-    for (var k = 0; k < remainingDefenders.length; k++) {
-      imgSrc = "assets/images/"+ remainingDefenders[k].name +".jpg";
-      var opponentID = "#opponent"+(k+1);
-      console.log (imgSrc);
-      console.log (opponentID);
-      $(opponentID).css('display', 'flex');
-      $(opponentID).attr("src", imgSrc);
-    }
+    displayAllDefenders(remainingDefenders);
+    // for (var l = 0; l < remainingDefenders.length; l++) {
+    //   imgSrc = "assets/images/"+ remainingDefenders[l].name +".jpg";
+    //   var opponentIDx = "#opponent"+(l+1);
+    //   console.log (imgSrc);
+    //   console.log (opponentIDx);
+    //   $(opponentIDx).css('display', 'flex');
+    //   $(opponentIDx).attr("src", imgSrc);
+    // }
+
+    //Set the arena ready for BATTLE
+    gameIsReadyForBattle = true;
+    displayScore(myCharacter, currentDefender);
+
+    //Assign the base attack power for later use
+    baseAttackPower = myCharacter.attackPower;
 
   });
+
+  // FOLLOWING CODE DESCRIBES HOW THE BATTLE IS FOUGHT
+  // WHEN ATTACK BUTTON IS PRESSED
+
+  $(".btn-primary").on("click", function() {
+
+    if (gameIsReadyForBattle) {
+
+      //Each time the player attacks, their character's Attack
+      //Power increases by its base Attack Power. For example,
+      //if the base Attack Power is 6, each attack will
+      //increase the Attack Power by 6 (12, 18, 24, 30 and so on).
+
+      myCharacter.attackPower=myCharacter.attackPower + baseAttackPower;
+      myCharacter.counterAttack=0;
+      //The enemy character only has Counter Attack Power.
+      //Unlike the player's Attack Power, Counter Attack Power never changes.
+      currentDefender.attackPower=0;
+      myCharacter.healthPoints=myCharacter.healthPoints - currentDefender.counterAttackPower;
+      currentDefender.healthPoints=currentDefender.healthPoints - myCharacter.attackPower;
+
+      console.log(myCharacter);
+      console.log(currentDefender);
+
+      displayScore(myCharacter, currentDefender);
+
+      //Condition of when one loses
+      if (myCharacter.healthPoints <= 0){
+        //I lose
+        alert("YOUR CHARACTER LOSES!");
+
+      }
+      else if (currentDefender.healthPoints <= 0){
+        //Opponent loses; Load the next opponent
+        gameIsReadyForBattle = false;
+        displayAllDefenders;
+
+
+      }
+
+    }
+
+
+
+  });
+
+
 
 
 
