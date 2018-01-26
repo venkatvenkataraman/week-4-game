@@ -85,26 +85,6 @@ $(".characterImage1").on("click", function() {
       $(charID).css('display', 'none');
     }
 
-    // $(this).css('display', 'none');});
-
-  // $('.characterImage').each(function(){
-  //   $(this).css('display', 'none');});
-  //
-  // $('#'+myCharacter.name).css('display', 'none');
-
-  // if (myCharacter.name === "obiWanKenobi"){
-  //   $('#obiWanKenobi').css('display', 'none');
-  // }
-  // else if (myCharacter.name === "lukeSkywalker"){
-  //   $('#lukeSkywalker').css('display', 'none');
-  // }
-  // else if (myCharacter.name === "darthMaul"){
-  //   $('#darthMaul').css('display', 'none');
-  // }
-  // else{
-  //   $('#darthSidious').css('display', 'none');
-  // }
-
   //Move myCharacter image to the yourCharacter id
 
   var imgSrc = "assets/images/"+ myCharacter.name +".jpg";
@@ -136,6 +116,14 @@ $(".characterImage1").on("click", function() {
     console.log(remDefendersIndex);
     currentDefender = remainingDefenders[remDefendersIndex];
     console.log(currentDefender);
+    //Clear the "Pick an Enemy" area
+    for (var k = 0; k < remainingDefenders.length; k++) {
+      var opponentID = "#opponent"+(k+1);
+      $(opponentID).css('display', 'none');
+    }
+
+
+    // Update remainingDefenders
     remainingDefenders.splice(remDefendersIndex, 1);
     console.log(remainingDefenders);
 
@@ -143,8 +131,17 @@ $(".characterImage1").on("click", function() {
     imgSrc = "assets/images/"+ currentDefender.name +".jpg";
     $('.defender').attr("src", imgSrc);
 
-  });
+    //Redisplay the "Pick an Enemy" area
+    for (var k = 0; k < remainingDefenders.length; k++) {
+      imgSrc = "assets/images/"+ remainingDefenders[k].name +".jpg";
+      var opponentID = "#opponent"+(k+1);
+      console.log (imgSrc);
+      console.log (opponentID);
+      $(opponentID).css('display', 'flex');
+      $(opponentID).attr("src", imgSrc);
+    }
 
+  });
 
 
 
@@ -166,8 +163,6 @@ $(".characterImage1").on("click", function() {
   //show myCharacter on top
     // $('#yourCharacter').attr('src="assets/images/"+myCharacter.name+".jpg"');
   //and the remainingDefenders at the bottom
-
-
 
   });
 
